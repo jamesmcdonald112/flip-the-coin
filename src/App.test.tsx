@@ -77,8 +77,19 @@ describe('Interaction', () => {
     })
 
     // Always a valid result
-    it('checks the result is always valid', () => {
+    it('checks the result is always valid', async () => {
+        render(<App />)
+        const user = userEvent.setup()
+        const button = screen.getByRole('button', { name: /random/i})
 
+        const validResults: string[] = ['heads', 'tails'] 
+
+        for(let i = 0; i < 10; i++) {
+            await user.click(button)
+            const resultText = await screen.findByText(/heads|tails/i)
+            expect(validResults).toContain(resultText.textContent?.toLocaleLowerCase())
+
+        }
     })
 
     // Coin animation during flip
