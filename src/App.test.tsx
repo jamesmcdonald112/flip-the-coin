@@ -8,8 +8,8 @@ describe('Render', () => {
     // Text
     it('renders the text to the screen, including the title and subheading', () => {
         render(<App />)
-        const heading = screen.getByText(/flip the coin game/i)
-        const subheading = screen.getByText(/Press the coin or the button to flip the coin/i)
+        const heading: HTMLElement = screen.getByText(/flip the coin game/i)
+        const subheading: HTMLElement = screen.getByText(/Press the coin or the button to flip the coin/i)
 
         expect(heading).toBeInTheDocument()
         expect(subheading).toBeInTheDocument()
@@ -19,12 +19,16 @@ describe('Render', () => {
 
     // Coin
     it('renders the coin to the screen', () => {
-        // Should it starrt on heads or tails by default or should it even be random by default?
+        render(<App />)
+        const coin: HTMLElement = screen.getByAltText(/coin showing/i)
+        expect(coin).toBeInTheDocument()
     })
 
     // Button
     it('renders the button to the screen', () => {
-
+        render(<App />)
+        const button: HTMLElement = screen.getByRole('button', { name: /random/i})
+        expect(button).toBeInTheDocument()
     })
 
 })

@@ -1,4 +1,5 @@
 import './App.css'
+import heads from '/images/heads.svg'
 
 function App() {
   
@@ -8,6 +9,8 @@ function App() {
         Flip the Coin Game
       </h1>
       <h2>Press the coin or the button to flip the coin</h2>
+      <img src={heads} alt='coin showing heads'/>
+      <button onClick={() => console.log("Spin the coin")}>Random</button>
     </>
   )
 }
