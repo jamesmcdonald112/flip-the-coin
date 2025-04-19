@@ -1,20 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import heads from '/images/heads.svg'
 import tails from '/images/tails.svg'
 import { flipCoin } from './utils/flipCoin'
+import CoinFlipAnimation from './components/CoinFlipAnimation'
 
 function App() {
-  const [result, setResult] = useState<'heads' | 'tails' | ''>('')
+  const [coinResult, setCoinResult] = useState<'heads' | 'tails' | ''>('')
+  const [frameIndex, setFrameIndex] = useState(0)
+  const [isFlipping, setIsFlipping] = useState(false)
 
   function displayImage() {
-    if (result === 'heads') return heads
-    if (result === 'tails') return tails
+    if (coinResult === 'heads') return heads
+    if (coinResult === 'tails') return tails
     return ''
   }
 
   function handleFlipCoin() {
-    setResult(flipCoin())
+    setIsFlipping(true)
+    setCoinResult(flipCoin())
+    setTimeout(() => { 
+      setIsFlipping(false)
+    },2000)
+
   }
 
   return (
@@ -25,16 +33,17 @@ function App() {
 
       <h2>Press the coin or the button to flip the coin</h2>
 
-      {result && (
+      {coinResult && (
         <img 
           src={displayImage()} 
-          alt={`coin showing ${result}`} 
+          alt={`coin showing ${coinResult}`} 
         />
       )}
 
-      {result && <p>{result}</p>}
+      {coinResult && <p data-testid="result">{coinResult}</p>}     
 
-      <button onClick={handleFlipCoin}>Random</button>
+
+      <button disabled={isFlipping} onClick={handleFlipCoin}>Random</button>
     </>
   )
 }
