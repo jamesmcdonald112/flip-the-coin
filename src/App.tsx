@@ -1,28 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
-import heads from '/images/heads.svg'
-import tails from '/images/tails.svg'
 import { flipCoin } from './utils/flipCoin'
 import CoinFlipAnimation from './components/CoinFlipAnimation'
+import CoinResultImage from './components/CoinResultImage'
 
 function App() {
-  const [coinResult, setCoinResult] = useState<'heads' | 'tails' | ''>('')
+  const [coinResult, setCoinResult] = useState<'heads' | 'tails'>('heads')
   const [frameIndex, setFrameIndex] = useState(0)
   const [isFlipping, setIsFlipping] = useState(false)
 
-  function displayImage() {
-    if (coinResult === 'heads') return heads
-    if (coinResult === 'tails') return tails
-    return ''
-  }
-
   function handleFlipCoin() {
     setIsFlipping(true)
-    setCoinResult(flipCoin())
-    setTimeout(() => { 
+    const result = flipCoin()
+  
+    const intervalId = window.setInterval(() => {
+      setFrameIndex(prevIndex => (prevIndex + 1) % 4)
+    }, 100)
+  
+    setTimeout(() => {
       setIsFlipping(false)
-    },2000)
+      clearInterval(intervalId)
+      setFrameIndex(result === 'heads' ? 0 : 2)
+      setCoinResult(result)
+    }, 2000)
+  }
 
+  function CoinStatus() {
+    if(isFlipping) return <p>Flipping...</p>
+    else {
+      return <p data-testid='result'>{coinResult}</p>
+    }
   }
 
   return (
@@ -33,16 +40,13 @@ function App() {
 
       <h2>Press the coin or the button to flip the coin</h2>
 
-      {coinResult && (
-        <img 
-          src={displayImage()} 
-          alt={`coin showing ${coinResult}`} 
-        />
-      )}
-
-      {coinResult && <p data-testid="result">{coinResult}</p>}     
-
-
+      {isFlipping 
+        ? <CoinFlipAnimation isFlipping={isFlipping} coinResult={coinResult} frameIndex={frameIndex}/>
+        : <CoinResultImage result={coinResult} />
+      }
+      
+      <CoinStatus />
+      
       <button disabled={isFlipping} onClick={handleFlipCoin}>Random</button>
     </>
   )

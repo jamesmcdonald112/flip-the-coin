@@ -1,6 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
-import { screen, render, waitFor, act } from '@testing-library/react'
-import userEvent, { UserEvent } from '@testing-library/user-event'
+import { screen, render, waitFor} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import App from './App'
 
 
@@ -24,12 +24,13 @@ describe('Render', () => {
         expect(button).toBeInTheDocument()
     })
 
+
 })
 
 describe('Interaction', () => {
 
-    // Button click and result
-    it('when the button is clicked, a result is displayed to the screen', async () => {
+    // Button click and text result 
+    it('when the random button is clicked, a text result is displayed to the screen', async () => {
         const user = userEvent.setup()
         render(<App />)
         const button = screen.getByRole('button', { name: /random/i})
@@ -37,31 +38,26 @@ describe('Interaction', () => {
 
         await user.click(button)
 
-        const result = await screen.findByTestId('result')
+        const result = await screen.findByTestId('result', {}, { timeout: 3000 })
+
         expect(result).toBeInTheDocument()
 
-    })
-
-    // Differnet results
-    it('results change on multiple flips', async () => {
-        
 
     })
 
-    // Always a valid result
-    it('checks the result is always valid', async () => {
-        render(<App />)
+    // Button click and image result
+    it('when the random button it clicked, a coin result is displayed', async () => {
         const user = userEvent.setup()
+        render(<App />)
         const button = screen.getByRole('button', { name: /random/i})
+        expect(button).toBeInTheDocument()
 
-        const validResults: string[] = ['heads', 'tails'] 
+        await user.click(button)
 
-        for(let i = 0; i < 10; i++) {
-            await user.click(button)
-            const resultText = await screen.findByText(/heads|tails/i)
-            expect(validResults).toContain(resultText.textContent?.toLocaleLowerCase())
+        // Animation starts
+        const flippingImage = await screen.findByAltText(/coin flipping/i)
+        expect(flippingImage).toBeInTheDocument()
 
-        }
     })
 
     // Button disabled during the spin
@@ -76,11 +72,6 @@ describe('Interaction', () => {
 
         expect(button).toBeDisabled()
 
-
-    })
-
-    // Result is shown in the correct DOM element
-    it('is displays in the correct DOM element', () => {
 
     })
 

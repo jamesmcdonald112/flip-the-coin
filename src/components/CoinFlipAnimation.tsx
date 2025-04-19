@@ -1,7 +1,6 @@
 import heads from '/images/heads.svg'
 import tails from '/images/tails.svg'
 import shadow from '/images/shadow.svg'
-import { useEffect, useState } from 'react'
 
 type CoinFlipAnimationProps = {
     isFlipping: boolean
@@ -21,6 +20,8 @@ export default function CoinFlipAnimation( { isFlipping, coinResult, frameIndex}
             'coin showing tails'
         }
     }
+
+    console.log(altText())
 
     return (
         <section>
