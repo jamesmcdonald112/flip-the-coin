@@ -6,7 +6,7 @@ A simple React + TypeScript coin flip animation built with Tailwind CSS and test
 
 ## Live Demo
 
-- Click here
+- [Click here for a live demo](https://shiny-froyo-55912c.netlify.app/)
 
 ## Features
 
