@@ -2,7 +2,7 @@
 
 A simple React + TypeScript coin flip animation built with Tailwind CSS and tested with Vitest.
 
-![Flip Demo](/flipCoinGif.gif)
+![Flip Demo](flipCoinGif.gif)
 
 ## Live Demo
 
