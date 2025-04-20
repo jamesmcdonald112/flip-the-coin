@@ -8,8 +8,7 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "vitest run --reporter verbose",
-    "test:watch": "vitest --watch --reporter verbose"
+    "test": "vitest run"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",

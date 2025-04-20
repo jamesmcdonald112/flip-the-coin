@@ -8,13 +8,12 @@ describe('Render', () => {
     // Text
     it('renders the text to the screen, including the title and subheading', () => {
         render(<App />)
-        const heading = screen.getByText(/flip the coin game/i)
-        const subheading = screen.getByText(/Press the coin or the button to flip the coin/i)
-
-        expect(heading).toBeInTheDocument()
-        expect(subheading).toBeInTheDocument()
-    
-
+        const heading = screen.getByRole('heading', { level: 1})
+        expect(heading).toHaveTextContent(/flip the coin/i)
+        
+        
+        const subHeading = screen.getByRole('heading', { level: 2})
+        expect(subHeading).toHaveTextContent(/Press the button to flip the coin/i)
     })
 
     // Button

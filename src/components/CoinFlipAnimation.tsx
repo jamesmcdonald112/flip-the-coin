@@ -21,10 +21,8 @@ export default function CoinFlipAnimation( { isFlipping, coinResult, frameIndex}
         }
     }
 
-    console.log(altText())
-
     return (
-        <section>
+        <section className='min-h-40 flex justify-center mb-20'>
             <img src={coinImages[frameIndex]} alt={altText()} />
         </section>
     )   

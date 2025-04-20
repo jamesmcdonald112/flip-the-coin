@@ -26,20 +26,22 @@ function App() {
   }
 
   function CoinStatus() {
-    if(isFlipping) return <p>Flipping...</p>
+    const styles = "mt-4 text-white text-xl font-semibold uppercase"
+    if(isFlipping) return <p className={styles}>Flipping...</p>
     else {
-      return <p data-testid='result'>{coinResult}</p>
+      return <p data-testid='result' className={styles}>{coinResult}</p>
     }
   }
 
   return (
     <>
-      <h1 className="text-blue-900 font-bold underline">
-        Flip the Coin Game
+    <div className="h-screen flex flex-col items-center justify-center px-4 bg-[#35383F] text-white">
+      <h1 className="text-4xl font-semibold text-white drop-shadow mb-2">Flip the coin
+
       </h1>
 
-      <h2>Press the coin or the button to flip the coin</h2>
 
+      <h2 className="text-xl text-gray-300 mb-20">Press the button to flip the coin</h2>
       {isFlipping 
         ? <CoinFlipAnimation isFlipping={isFlipping} coinResult={coinResult} frameIndex={frameIndex}/>
         : <CoinResultImage result={coinResult} />
@@ -47,7 +49,8 @@ function App() {
       
       <CoinStatus />
       
-      <button disabled={isFlipping} onClick={handleFlipCoin}>Random</button>
+      <button  disabled={isFlipping} onClick={handleFlipCoin} className='w-40 h-12 mt-15 bg-blue-500 shadow-md rounded uppercase hover:bg-blue-300 disabled:opacity-50 transition-all'>Random</button>
+    </div>
     </>
   )
 }
